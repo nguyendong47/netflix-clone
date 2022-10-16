@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const userRoutes = require('./routes/UserRoutes');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 
@@ -9,13 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-	.connect(
-		'mongodb+srv://nguyendong:nguyendong47@cluster0.hr9qn.mongodb.net/?retryWrites=true&w=majority',
-		{
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		}
-	)
+	.connect(process.env.DB_CONNECT, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
 	.then(() => {
 		console.log('DB Connection Successful');
 	})
